@@ -14,6 +14,6 @@ steps:
     inputs:
       command: "publish"
       project: "**/*.csproj"
-      arugments: "--no-build --configuration ${{parameters.buildConfiguration}}"
+      arugments: "--no-build --configuration ${{parameters.buildConfiguration}} --output $(Build.ArtifactStagingDirectory)/${{parameters.buildConfiguration}}"
       publishWebProjects: false
       zipAfterPublish: true
