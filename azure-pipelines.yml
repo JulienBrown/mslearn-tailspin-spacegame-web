@@ -56,9 +56,9 @@ steps:
     displayName: "Run unit tests - $(buildConfiguration)"
     inputs:
       command: "test"
-      arguments: "--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /po:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/"
+      arguments: "--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/"
       publishTestResults: true
-      projects: "**/*.csproj"
+      projects: "**/*.Tests.csproj"
 
   - task: DotNetCoreCLI@2
     displayName: "Create code coverage report"
@@ -74,14 +74,6 @@ steps:
       summaryFileLocation: "$(Build.SourcesDirectory)/**/coverage.cobertura.xml"
 
   - task: DotNetCoreCLI@2
-    displayName: "Unit Testing"
-    inputs:
-      command: "test"
-      arguments: "--no-build --configuration $(buildConfiguration)"
-      publishTestResults: true
-      projects: "**/*.Tests.csproj"
-
-  - task: DotNetCoreCLI@2
     displayName: "Publish the project - $(buildConfiguration)"
     inputs:
       command: "publish"
@@ -91,5 +83,5 @@ steps:
       zipAfterPublish: true
 
   - task: PublishBuildArtifacts@1
-    displayName: "Publish Artifact: dropp"
+    displayName: "Publish Artifact: drop"
     condition: succeeded()
